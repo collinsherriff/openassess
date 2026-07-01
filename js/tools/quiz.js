@@ -37,10 +37,11 @@ export async function render(mount) {
   }
 }
 
-class Runner {
-  constructor(root, quiz) {
+export class Runner {
+  constructor(root, quiz, opts = {}) {
     this.root = root;
     this.quiz = quiz;
+    this.opts = opts;         // { shared: bool }
     this.responses = {}; // id -> value(s)
     this.startTime = Date.now();
   }
@@ -140,10 +141,14 @@ class Runner {
         stat(needsManual, 'To grade'),
         stat(`${Math.floor(durationSec / 60)}:${String(durationSec % 60).padStart(2, '0')}`, 'Time'),
       ]),
-      h('div.row.tight', { style: 'margin-top:1rem' }, [
-        h('a.btn.sm.primary', { href: '#/tool/reports' }, '📊 View in Reports'),
-        h('button.btn.sm', { onclick: () => location.reload() }, '↺ Retake'),
-      ]),
+      h('div.row.tight', { style: 'margin-top:1rem' },
+        this.opts.shared ? [
+          h('button.btn.sm.primary', { onclick: () => location.reload() }, '↺ Retake'),
+          h('a.btn.sm', { href: '#/' }, 'About OpenAssess'),
+        ] : [
+          h('a.btn.sm.primary', { href: '#/tool/reports' }, '📊 View in Reports'),
+          h('button.btn.sm', { onclick: () => location.reload() }, '↺ Retake'),
+        ]),
     ]);
     this.root.prepend(summary);
     summary.scrollIntoView({ behavior: 'smooth' });

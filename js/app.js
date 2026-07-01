@@ -30,6 +30,14 @@ export const TOOLS = [
     tag: 'Create', blurb: 'Turn any item set into study flashcards with a self-test flip mode and Anki export.' },
   { id: 'readability', icon: '📖', name: 'Reading-Level Analyzer', status: 'live',
     tag: 'Analyze', blurb: 'Check the reading level of any passage or item stem (Flesch–Kincaid, SMOG, and more).' },
+  { id: 'grades', icon: '🧮', name: 'Grade Calculator', status: 'live',
+    tag: 'Analyze', blurb: 'Score→percent→letter, a printable EZ-grader table, and weighted final-grade math.' },
+  { id: 'bubble-sheet', icon: '🅰️', name: 'Bubble Sheet Maker', status: 'live',
+    tag: 'Create', blurb: 'Generate a printable OMR-style answer sheet for paper tests, with an optional key.' },
+  { id: 'wordsearch', icon: '🔤', name: 'Word Search Maker', status: 'live',
+    tag: 'Create', blurb: 'Turn a vocabulary list into a printable word-search puzzle plus answer key.' },
+  { id: 'picker', icon: '🎯', name: 'Random Picker & Groups', status: 'live',
+    tag: 'Classroom', blurb: 'Cold-call fairly with a no-repeat spinner, or split your class into random groups.' },
 ];
 
 // ---- Router --------------------------------------------------------------
@@ -50,6 +58,7 @@ async function router() {
 
   const full = '/' + (path || '');
   if (path === 'tool') return loadTool(rest[0], rest.slice(1), mount);
+  if (path === 'take') return takeShared(rest.join('/'), mount);
   const view = routes[full] || routes[hash] || notFound;
   const node = await view(mount, rest);
   if (node) { mount.append(node); mount.firstElementChild?.classList.add('fade-in'); }
@@ -70,6 +79,26 @@ async function loadTool(id, params = [], mount = document.getElementById('main')
 
 window.addEventListener('hashchange', router);
 window.addEventListener('DOMContentLoaded', router);
+
+// ---- Shared test taker ---------------------------------------------------
+async function takeShared(data, mount) {
+  mount.innerHTML = '<div class="center" style="padding:4rem"><span class="spin"></span></div>';
+  const { decodeQuiz, unslim } = await import('./lib/share.js');
+  const { Runner } = await import('./tools/quiz.js');
+  const decoded = decodeQuiz(data);
+  if (!decoded || !decoded.q?.length) {
+    mount.innerHTML = '<div class="empty"><div class="big">🔗</div><h2>This link looks broken</h2><p>Ask whoever shared it to send a fresh link.</p><p><a href="#/">Go to OpenAssess</a></p></div>';
+    return;
+  }
+  const quiz = unslim(decoded);
+  mount.innerHTML = '';
+  const banner = h('div.callout', { style: 'margin-bottom:1rem',
+    html: `📝 You've been given a shared assessment: <b>${quiz.title}</b>. Answer the questions, then submit to see your score.` });
+  mount.append(banner);
+  const holder = h('div');
+  mount.append(holder);
+  new Runner(holder, quiz, { shared: true }).mount();
+}
 
 // ---- Theme ---------------------------------------------------------------
 const THEME_KEY = 'openassess.theme';
@@ -106,8 +135,8 @@ function home() {
       </div>
     </section>`;
 
-  wrap.append(sectionTitle('A tool for every step', 'Import → Organize → Create → Deliver → Analyze'));
-  wrap.append(toolGrid(TOOLS.slice(0, 10)));
+  wrap.append(sectionTitle(`${TOOLS.length} tools, one workflow`, 'Import → Organize → Create → Deliver → Analyze → Classroom'));
+  wrap.append(toolGrid(TOOLS));
 
   const why = h('section', { style: 'margin-top:3rem' });
   why.innerHTML = `
@@ -124,8 +153,8 @@ function home() {
 
 function toolsIndex() {
   const wrap = h('div');
-  wrap.innerHTML = `<h1>Tools</h1><p class="lead muted">Ten free tools covering the full assessment workflow. Pick one to start.</p>`;
-  const groups = ['Import', 'Organize', 'Create', 'Deliver', 'Analyze'];
+  wrap.innerHTML = `<h1>Tools</h1><p class="lead muted">${TOOLS.length} free tools covering the full assessment workflow. Pick one to start.</p>`;
+  const groups = ['Import', 'Organize', 'Create', 'Deliver', 'Analyze', 'Classroom'];
   for (const g of groups) {
     const items = TOOLS.filter((t) => t.tag === g);
     if (!items.length) continue;

@@ -29,10 +29,15 @@ Teachers currently stitch together paid converters, clunky LMS exports and a lot
 | **Smart Search** | TF-IDF + cosine-similarity search over your bank — matches on meaning, plus “more like this.” Runs offline, no model download. |
 | **Quiz & Worksheet Maker** | Assemble a filtered, shuffled quiz; print a worksheet + answer key, export to QTI/Moodle, or deliver it live. |
 | **Test Player** | Deliver an assessment in-browser with a timer, shuffling and instant auto-grading. Saves results for reporting. |
+| **Shareable test links** | The Quiz Maker's **🔗 Share link** encodes an entire test into a single URL (LZString-compressed) — no login, no upload, no backend. Anyone who opens it takes the quiz in their browser and is graded instantly (`#/take/<data>`). |
 | **Report Maker** | Class, attempt and item-level reports with item analysis (p-value + too-easy/too-hard flags). |
 | **Rubric Builder** | Weighted criteria × performance levels, printable to PDF, autosaved. |
 | **Flashcard Maker** | Turn items (or a term=definition list) into a flip-card deck; export to Anki/Quizlet. |
 | **Reading-Level Analyzer** | Flesch–Kincaid, Reading Ease, SMOG, Gunning Fog and ARI for any passage or your item stems. |
+| **Grade Calculator** | Score→percent→letter, a printable EZ-grader table, and weighted final-grade math. |
+| **Bubble Sheet Maker** | Printable OMR-style answer sheet for paper tests, with an optional printed key. |
+| **Word Search Maker** | Turn a vocabulary list into a printable word-search puzzle (8 directions) + answer key. |
+| **Random Picker & Groups** | Fair cold-calling with a no-repeat spinner, plus random group builder. |
 
 ---
 
@@ -68,13 +73,17 @@ python3 -m http.server 8080
 # then open http://localhost:8080
 ```
 
-## Deploy to GitHub Pages
+## Deploy to Netlify (recommended)
 
-The included workflow (`.github/workflows/pages.yml`) deploys `main` automatically. Enable it once:
+The repo ships with `netlify.toml`, so Netlify needs zero configuration. Connect it once and every push to `main` auto-deploys:
 
-1. Push to GitHub (already done if you're reading this on GitHub).
-2. **Settings → Pages → Build and deployment → Source: GitHub Actions.**
-3. The site publishes to `https://<user>.github.io/openassess/`.
+1. On [Netlify](https://app.netlify.com) → **Add new site → Import an existing project → GitHub → `openassess`**.
+2. Leave build command empty and publish directory `.` (already set by `netlify.toml`).
+3. **Deploy.** You get a live `https://<name>.netlify.app` URL; pushes redeploy automatically.
+
+> No build step, no env vars, no server. You can also drag the folder onto <https://app.netlify.com/drop> for an instant deploy.
+
+A GitHub Pages workflow (`.github/workflows/pages.yml`) is included as an alternative if you prefer Pages.
 
 ---
 

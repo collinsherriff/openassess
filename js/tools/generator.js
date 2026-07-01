@@ -1,9 +1,10 @@
 // ===== Quiz & Worksheet Maker =====
-import { h, toolHead, toast, download, questionCard } from '../lib/ui.js';
+import { h, toolHead, toast, download, questionCard, copy } from '../lib/ui.js';
 import { Store } from '../lib/store.js';
 import { TYPES, escapeHtml } from '../lib/model.js';
 import { buildPackage } from '../lib/qti.js';
 import { toMoodleXML } from '../lib/formats.js';
+import { shareUrl } from '../lib/share.js';
 
 export const QUIZ_KEY = 'openassess.currentQuiz';
 
@@ -73,6 +74,7 @@ export async function render(mount) {
       h('h3', {}, `${selection.length} questions · ${total} points`),
       h('div.row.tight', {}, [
         h('button.btn.sm.primary', { onclick: takeLive }, '▶️ Deliver live'),
+        h('button.btn.sm', { onclick: shareLink }, '🔗 Share link'),
         h('button.btn.sm', { onclick: () => printDoc(false) }, '🖨 Worksheet'),
         h('button.btn.sm', { onclick: () => printDoc(true) }, '🖨 Answer key'),
         h('button.btn.sm', { onclick: async () => download('quiz-qti.zip', await buildPackage(selection, { title: opts.title })) }, '🧩 QTI'),
@@ -85,6 +87,27 @@ export async function render(mount) {
   function takeLive() {
     sessionStorage.setItem(QUIZ_KEY, JSON.stringify({ title: opts.title, questions: selection }));
     location.hash = '#/tool/quiz';
+  }
+
+  function shareLink() {
+    const url = shareUrl({ title: opts.title, questions: selection });
+    preview.querySelector('#sharebox')?.remove();
+    const box = h('div.panel', { id: 'sharebox', style: 'margin:.8rem 0' }, [
+      h('div.spread', {}, [
+        h('h3', { style: 'margin:0' }, '🔗 Shareable link'),
+        h('span.pill.ghost', {}, `${(url.length / 1024).toFixed(1)} KB`),
+      ]),
+      h('p.muted', { style: 'margin:.3rem 0 .6rem' }, 'The whole test is encoded in this link — no login or upload. Anyone who opens it takes the quiz in their browser and gets graded instantly.'),
+      h('input', { type: 'text', readonly: true, value: url, onclick: (e) => e.target.select() }),
+      h('div.row.tight', { style: 'margin-top:.6rem' }, [
+        h('button.btn.sm.primary', { onclick: () => copy(url) }, '⧉ Copy link'),
+        h('a.btn.sm', { href: url.slice(url.indexOf('#')), target: '_blank' }, '↗ Open as student'),
+      ]),
+      url.length > 8000 ? h('div.callout.warn', { style: 'margin-top:.6rem' },
+        'Heads up: this test is large, so the link is long. Some chat apps truncate very long URLs — for big tests, prefer QTI export or “Deliver live”.') : null,
+    ]);
+    preview.insertBefore(box, preview.children[1]);
+    copy(url);
   }
 
   function printDoc(withKey) {

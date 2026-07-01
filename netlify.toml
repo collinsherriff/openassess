@@ -1,0 +1,18 @@
+# Netlify config — static site, no build step.
+[build]
+  publish = "."
+  command = ""
+
+# The app uses hash routing, so deep links resolve client-side. This catch-all
+# just makes sure any stray path still serves the app shell.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer"
+    X-Frame-Options = "SAMEORIGIN"
