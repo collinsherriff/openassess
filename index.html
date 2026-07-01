@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenAssess — Free tools for teachers</title>
+  <meta name="description" content="A free, education-only toolkit for the whole assessment lifecycle: PDF→QTI, format conversion, an item bank, quiz delivery, reports and more. No paywalls, runs in your browser." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <!-- Client-side libraries (loaded from CDN, cached) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar">
+    <a class="brand" href="#/" aria-label="OpenAssess home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">Open<b>Assess</b></span>
+    </a>
+    <nav class="topnav" aria-label="Primary">
+      <a href="#/tools">Tools</a>
+      <a href="#/bank">Item Bank</a>
+      <a href="#/about">About</a>
+      <a class="gh" href="https://github.com/collinsherriff/openassess" target="_blank" rel="noopener">GitHub ↗</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle light / dark">◐</button>
+  </header>
+
+  <main id="main" class="view"><!-- rendered by router --></main>
+
+  <footer class="footer">
+    <div>
+      <strong>OpenAssess</strong> · 100% free · privacy-first · runs entirely in your browser
+    </div>
+    <div class="footer-links">
+      <a href="#/about">About</a>
+      <a href="#/privacy">Privacy</a>
+      <a href="https://github.com/collinsherriff/openassess" target="_blank" rel="noopener">Source</a>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
