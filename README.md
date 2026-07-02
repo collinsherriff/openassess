@@ -38,8 +38,15 @@ Teachers currently stitch together paid converters, clunky LMS exports and a lot
 | **Bubble Sheet Maker** | Printable OMR-style answer sheet for paper tests, with an optional printed key. |
 | **Word Search Maker** | Turn a vocabulary list into a printable word-search puzzle (8 directions) + answer key. |
 | **Random Picker & Groups** | Fair cold-calling with a no-repeat spinner, plus random group builder. |
+| **Classroom Screen** | A projector view: big countdown (chime included), tap-to-cross-off agenda, and working instructions. |
 
 ---
+
+## Design & UX
+
+- **Command palette** — press <kbd>⌘K</kbd> (or <kbd>/</kbd>) anywhere to jump to any tool.
+- **Sample bank** — one click on the home page seeds 18 realistic questions across five subjects, so every tool is explorable immediately.
+- A quiet, editorial "paper & ink" visual system: warm paper surfaces, one deep-green accent, serif display type, hand-drawn-feel stroke icons. Light and dark themes.
 
 ## Architecture
 

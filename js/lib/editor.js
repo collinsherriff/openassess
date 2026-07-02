@@ -12,7 +12,7 @@ export function questionEditor(q, onChange, onRemove) {
   function typeRow() {
     const sel = h('select', { onchange: (e) => { state.type = e.target.value; ensureShape(); render(); emit(); } });
     for (const [val, def] of Object.entries(TYPES)) {
-      const opt = h('option', { value: val }, `${def.icon} ${def.label}`);
+      const opt = h('option', { value: val }, def.label);
       if (val === state.type) opt.selected = true;
       sel.append(opt);
     }
@@ -24,7 +24,7 @@ export function questionEditor(q, onChange, onRemove) {
       h('div', {}, [h('label', {}, 'Points'), pts]),
     );
     if (onRemove) row.append(h('div', { style: 'align-self:end' },
-      [h('button.btn.sm.danger', { onclick: onRemove }, '🗑 Remove')]));
+      [h('button.btn.sm.danger', { onclick: onRemove }, 'Remove')]));
     return row;
   }
 

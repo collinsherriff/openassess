@@ -88,14 +88,14 @@ export async function render(mount) {
     if (out.kind === 'zip') {
       actions.append(h('button.btn.primary.sm', { onclick: async () => {
         download('qti-package.zip', await buildPackage(questions)); toast('QTI package downloaded');
-      } }, '⬇ Download .zip'));
+      } }, 'Download .zip'));
       outPanel.append(actions);
       outPanel.append(h('div.callout', { html: `A QTI 2.1 IMS Content Package with ${questions.length} items will be generated. Preview below.` }));
     } else {
       const text = out.serialize(questions);
       actions.append(
-        h('button.btn.primary.sm', { onclick: () => download(`converted.${out.ext}`, text) }, '⬇ Download'),
-        h('button.btn.sm', { onclick: () => copy(text) }, '⧉ Copy'),
+        h('button.btn.primary.sm', { onclick: () => download(`converted.${out.ext}`, text) }, 'Download'),
+        h('button.btn.sm', { onclick: () => copy(text) }, 'Copy'),
       );
       outPanel.append(actions);
       outPanel.append(h('textarea', { class: 'code', readonly: true, style: 'min-height:200px' }, text));
@@ -103,7 +103,7 @@ export async function render(mount) {
     // shared: add to bank
     outPanel.append(h('button.btn.sm.ghost', { style: 'margin-top:.6rem', onclick: () => {
       toast(`Saved ${Store.addMany(questions)} items to your bank`);
-    } }, '🗄️ Save parsed items to Item Bank'));
+    } }, 'Save parsed items to Item Bank'));
 
     // preview
     const prev = h('details', { style: 'margin-top:1rem' });

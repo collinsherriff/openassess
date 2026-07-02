@@ -29,9 +29,9 @@ export async function render(mount) {
     check('Diagonals', 'diagonals'), check('Backwards', 'backwards'),
   ]));
   panel.append(h('div.row.tight', { style: 'margin-top:.8rem' }, [
-    h('button.btn.primary.sm', { onclick: generate }, '⚙ Generate'),
-    h('button.btn.sm', { onclick: () => printPuzzle(false) }, '🖨 Print puzzle'),
-    h('button.btn.sm', { onclick: () => printPuzzle(true) }, '🖨 Print key'),
+    h('button.btn.primary.sm', { onclick: generate }, 'Generate'),
+    h('button.btn.sm', { onclick: () => printPuzzle(false) }, 'Print puzzle'),
+    h('button.btn.sm', { onclick: () => printPuzzle(true) }, 'Print key'),
   ]));
 
   function labeled(label, ctrl) { return h('div', {}, [h('label', {}, label), ctrl]); }

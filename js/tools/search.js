@@ -66,7 +66,7 @@ export async function render(mount) {
 
   const items = Store.all();
   if (!items.length) {
-    root.append(h('div.empty', { html: '<div class="big">🔎</div><h3>Nothing to search yet</h3><p>Add items via <a href="#/tool/pdf-to-qti">PDF → QTI</a> or the <a href="#/bank">Item Bank</a> first.</p>' }));
+    root.append(h('div.empty', { html: '<h3>Nothing to search yet</h3><p>Add items via <a href="#/tool/pdf-to-qti">PDF → QTI</a> or the <a href="#/bank">Item Bank</a> first.</p>' }));
     mount.append(root); return;
   }
   const index = buildIndex(items);
@@ -100,7 +100,7 @@ export async function render(mount) {
     const pct = Math.round(Math.min(1, r.score * 1.4) * 100);
     card.prepend(h('div.spread', { style: 'margin-bottom:.4rem' }, [
       h('span.pill', {}, `${pct}% relevant`),
-      h('button.btn.sm.ghost', { onclick: () => similar(r.q) }, '↔ More like this'),
+      h('button.btn.sm.ghost', { onclick: () => similar(r.q) }, 'More like this'),
     ]));
     wrap.append(card);
     return wrap;

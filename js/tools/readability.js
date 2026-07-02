@@ -53,7 +53,7 @@ export async function render(mount) {
     grid.append(metricCard('SMOG', gradeStr(smog), 'Grade level'));
     grid.append(metricCard('ARI', gradeStr(ari), 'Grade level'));
     out.append(grid);
-    out.append(h('div.callout', { style: 'margin-top:1rem', html: `💡 <b>Rule of thumb:</b> aim a passage at or slightly below your students' grade. Flesch Reading Ease of 60–70 suits roughly grades 8–9.` }));
+    out.append(h('div.callout', { style: 'margin-top:1rem', html: `<b>Rule of thumb:</b> aim a passage at or slightly below your students' grade. Flesch Reading Ease of 60–70 suits roughly grades 8–9.` }));
   }
 
   function metricCard(name, val, sub) {

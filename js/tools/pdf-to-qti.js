@@ -84,7 +84,7 @@ export async function render(mount) {
       h('button.btn.primary', { onclick: () => renderExport() }, 'Continue to export →'),
       h('button.btn.ghost', { onclick: () => {
         const n = Store.addMany(questions); toast(`Saved ${n} items to your bank`);
-      } }, '🗄️ Save all to Item Bank'),
+      } }, 'Save all to Item Bank'),
     ]));
     step2.scrollIntoView({ behavior: 'smooth' });
   }
@@ -97,29 +97,29 @@ export async function render(mount) {
     step3.append(h('h3', {}, '3 · Export'));
     step3.append(h('p.muted', {}, 'Download a QTI 2.1 content package (a .zip) and import it into your LMS, or grab another format.'));
     const grid = h('div.tool-grid');
-    grid.append(exportCard('🧩', 'QTI 2.1 package', 'IMS Content Package · Canvas, Moodle, Blackboard, Brightspace', async () => {
+    grid.append(exportCard('', 'QTI 2.1 package', 'IMS Content Package · Canvas, Moodle, Blackboard, Brightspace', async () => {
       const blob = await buildPackage(questions, { title: 'OpenAssess export' });
       download('qti-package.zip', blob);
       toast('QTI package downloaded');
     }));
-    grid.append(exportCard('📦', 'Moodle XML', 'Import via Question bank → Import', () => {
+    grid.append(exportCard('', 'Moodle XML', 'Import via Question bank → Import', () => {
       download('questions-moodle.xml', toMoodleXML(questions), 'application/xml');
     }));
-    grid.append(exportCard('📝', 'GIFT', 'Moodle plain-text format', () => {
+    grid.append(exportCard('', 'GIFT', 'Moodle plain-text format', () => {
       download('questions.gift.txt', toGIFT(questions), 'text/plain');
     }));
-    grid.append(exportCard('🗄️', 'Save to Item Bank', 'Reuse these across every tool', () => {
+    grid.append(exportCard('', 'Save to Item Bank', 'Reuse these across every tool', () => {
       const n = Store.addMany(questions); toast(`Saved ${n} items to your bank`);
     }));
     step3.append(grid);
     step3.append(h('div.callout', { style: 'margin-top:1rem',
-      html: '💡 <b>Tip:</b> in Canvas, import the .zip under <i>Settings → Import Course Content → QTI .zip file</i>. In Moodle use <i>Question bank → Import → Moodle XML</i>.' }));
+      html: '<b>Tip:</b> in Canvas, import the .zip under <i>Settings → Import Course Content → QTI .zip file</i>. In Moodle use <i>Question bank → Import → Moodle XML</i>.' }));
     step3.scrollIntoView({ behavior: 'smooth' });
   }
 
   function exportCard(icon, title, sub, onClick) {
     return h('div.card', {}, [
-      h('div.ico', {}, icon), h('h3', {}, title), h('p', {}, sub),
+      h('h3', { style: 'margin-top:0' }, title), h('p', {}, sub),
       h('button.btn.primary.sm', { style: 'margin-top:.7rem', onclick: onClick }, 'Download'),
     ]);
   }

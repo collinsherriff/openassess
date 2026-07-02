@@ -14,7 +14,7 @@ export async function render(mount) {
 
   const all = Store.all();
   if (!all.length) {
-    root.append(h('div.empty', { html: '<div class="big">🧪</div><h3>No items yet</h3><p>Build your bank with <a href="#/tool/pdf-to-qti">PDF → QTI</a> first.</p>' }));
+    root.append(h('div.empty', { html: '<h3>No items yet</h3><p>Build your bank with <a href="#/tool/pdf-to-qti">PDF → QTI</a> first.</p>' }));
     mount.append(root); return;
   }
 
@@ -45,7 +45,7 @@ export async function render(mount) {
   panel.append(h('div.row.tight', { style: 'margin-top:.7rem' }, [
     check('Shuffle questions', 'shuffleQ'), check('Shuffle options', 'shuffleO'), check('Show points', 'showPoints'),
   ]));
-  panel.append(h('button.btn.primary', { style: 'margin-top:.9rem', onclick: build }, '⚙ Generate'));
+  panel.append(h('button.btn.primary', { style: 'margin-top:.9rem', onclick: build }, 'Generate'));
 
   function check(label, field) {
     const cb = h('input', { type: 'checkbox', checked: opts[field], onchange: (e) => opts[field] = e.target.checked });
@@ -73,12 +73,12 @@ export async function render(mount) {
     preview.append(h('div.spread', {}, [
       h('h3', {}, `${selection.length} questions · ${total} points`),
       h('div.row.tight', {}, [
-        h('button.btn.sm.primary', { onclick: takeLive }, '▶️ Deliver live'),
-        h('button.btn.sm', { onclick: shareLink }, '🔗 Share link'),
-        h('button.btn.sm', { onclick: () => printDoc(false) }, '🖨 Worksheet'),
-        h('button.btn.sm', { onclick: () => printDoc(true) }, '🖨 Answer key'),
-        h('button.btn.sm', { onclick: async () => download('quiz-qti.zip', await buildPackage(selection, { title: opts.title })) }, '🧩 QTI'),
-        h('button.btn.sm', { onclick: () => download('quiz-moodle.xml', toMoodleXML(selection), 'application/xml') }, '📦 Moodle'),
+        h('button.btn.sm.primary', { onclick: takeLive }, 'Deliver live'),
+        h('button.btn.sm', { onclick: shareLink }, 'Share link'),
+        h('button.btn.sm', { onclick: () => printDoc(false) }, 'Worksheet'),
+        h('button.btn.sm', { onclick: () => printDoc(true) }, 'Answer key'),
+        h('button.btn.sm', { onclick: async () => download('quiz-qti.zip', await buildPackage(selection, { title: opts.title })) }, 'QTI'),
+        h('button.btn.sm', { onclick: () => download('quiz-moodle.xml', toMoodleXML(selection), 'application/xml') }, 'Moodle'),
       ]),
     ]));
     selection.forEach((q, i) => preview.append(questionCard(q, { index: i, showAnswer: false })));
@@ -94,13 +94,13 @@ export async function render(mount) {
     preview.querySelector('#sharebox')?.remove();
     const box = h('div.panel', { id: 'sharebox', style: 'margin:.8rem 0' }, [
       h('div.spread', {}, [
-        h('h3', { style: 'margin:0' }, '🔗 Shareable link'),
+        h('h3', { style: 'margin:0' }, 'Shareable link'),
         h('span.pill.ghost', {}, `${(url.length / 1024).toFixed(1)} KB`),
       ]),
       h('p.muted', { style: 'margin:.3rem 0 .6rem' }, 'The whole test is encoded in this link — no login or upload. Anyone who opens it takes the quiz in their browser and gets graded instantly.'),
       h('input', { type: 'text', readonly: true, value: url, onclick: (e) => e.target.select() }),
       h('div.row.tight', { style: 'margin-top:.6rem' }, [
-        h('button.btn.sm.primary', { onclick: () => copy(url) }, '⧉ Copy link'),
+        h('button.btn.sm.primary', { onclick: () => copy(url) }, 'Copy link'),
         h('a.btn.sm', { href: url.slice(url.indexOf('#')), target: '_blank' }, '↗ Open as student'),
       ]),
       url.length > 8000 ? h('div.callout.warn', { style: 'margin-top:.6rem' },

@@ -35,8 +35,8 @@ export async function render(mount) {
   const noRepeat = h('input', { type: 'checkbox', checked: true });
   right.append(h('label.checkline', { style: 'margin:.7rem 0' }, [noRepeat, "Don't repeat until everyone's picked"]));
   right.append(h('div.row.tight', {}, [
-    h('button.btn.primary', { onclick: pick }, '🎯 Pick a student'),
-    h('button.btn.ghost', { onclick: () => { alreadyPicked = []; toast('Reset — everyone is back in'); } }, '↺ Reset'),
+    h('button.btn.primary', { onclick: pick }, 'Pick a student'),
+    h('button.btn.ghost', { onclick: () => { alreadyPicked = []; toast('Reset — everyone is back in'); } }, 'Reset'),
   ]));
   const pickedList = h('div', { style: 'margin-top:.8rem' });
   right.append(pickedList);

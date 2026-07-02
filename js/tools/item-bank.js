@@ -22,7 +22,7 @@ export async function render(mount) {
 
   function renderToolbar() {
     toolbar.innerHTML = '';
-    const search = h('input', { type: 'search', placeholder: '🔎 Filter by keyword…', value: filters.q,
+    const search = h('input', { type: 'search', placeholder: 'Filter by keyword…', value: filters.q,
       oninput: (e) => { filters.q = e.target.value; renderList(); } });
     const facet = (label, field) => {
       const s = h('select', { onchange: (e) => { filters[field] = e.target.value; renderList(); } });
@@ -37,9 +37,9 @@ export async function render(mount) {
       facet('All difficulties', 'difficulty'), facet("All Bloom levels", 'bloom'),
     ]));
     toolbar.append(h('div.row.tight', { style: 'margin-top:.8rem' }, [
-      h('button.btn.primary.sm', { onclick: addBlank }, '＋ New question'),
-      h('button.btn.sm', { onclick: () => importDialog() }, '⬆ Import CSV'),
-      h('button.btn.sm', { onclick: exportMenu }, '⬇ Export'),
+      h('button.btn.primary.sm', { onclick: addBlank }, '+ New question'),
+      h('button.btn.sm', { onclick: () => importDialog() }, 'Import CSV'),
+      h('button.btn.sm', { onclick: exportMenu }, 'Export'),
       h('button.btn.sm.danger', { onclick: () => {
         if (confirm('Delete ALL items from your bank? This cannot be undone.')) { Store.clear(); refresh(); toast('Bank cleared'); }
       } }, 'Clear bank'),
@@ -81,7 +81,7 @@ export async function render(mount) {
       items.length ? h('a', { href: '#/tool/generator' }, 'Build a quiz from these →') : '',
     ]));
     if (!Store.count()) {
-      listWrap.append(h('div.empty', { html: '<div class="big">🗄️</div><h3>Your bank is empty</h3><p>Import a test with <a href="#/tool/pdf-to-qti">PDF → QTI</a>, or add a question by hand.</p>' }));
+      listWrap.append(h('div.empty', { html: '<h3>Your bank is empty</h3><p>Import a test with <a href="#/tool/pdf-to-qti">PDF → QTI</a>, or add a question by hand.</p>' }));
       return;
     }
     if (!items.length) { listWrap.append(h('div.empty', {}, 'No items match those filters.')); return; }
@@ -91,9 +91,9 @@ export async function render(mount) {
   function row(it) {
     const card = questionCard(it, { showAnswer: true });
     const bar = h('div.row.tight', { style: 'margin-top:.6rem' }, [
-      h('button.btn.sm', { onclick: () => editItem(it) }, '✏️ Edit'),
-      h('button.btn.sm', { onclick: () => { Store.add(makeQuestion({ ...it, id: undefined })); toast('Duplicated'); } }, '⧉ Duplicate'),
-      h('button.btn.sm.danger', { onclick: () => { Store.remove(it.id); toast('Deleted'); } }, '🗑'),
+      h('button.btn.sm', { onclick: () => editItem(it) }, 'Edit'),
+      h('button.btn.sm', { onclick: () => { Store.add(makeQuestion({ ...it, id: undefined })); toast('Duplicated'); } }, 'Duplicate'),
+      h('button.btn.sm.danger', { onclick: () => { Store.remove(it.id); toast('Deleted'); } }, 'Delete'),
     ]);
     card.append(bar);
     return card;

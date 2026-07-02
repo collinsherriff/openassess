@@ -16,14 +16,14 @@ export async function render(mount) {
     const all = Store.all();
     root.append(toolHead('Test Player', 'Deliver an assessment in the browser with a timer, shuffle and instant auto-grading.'));
     if (!all.length) {
-      root.append(h('div.empty', { html: '<div class="big">▶️</div><h3>No quiz loaded</h3><p>Build one in the <a href="#/tool/generator">Quiz Maker</a>, or add items to your <a href="#/bank">bank</a>.</p>' }));
+      root.append(h('div.empty', { html: '<h3>No quiz loaded</h3><p>Build one in the <a href="#/tool/generator">Quiz Maker</a>, or add items to your <a href="#/bank">bank</a>.</p>' }));
       return;
     }
     root.append(h('div.panel', {}, [
       h('h3', {}, 'Quick test'),
       h('p.muted', {}, `Deliver all ${all.length} items in your bank as a practice test, or head to the Quiz Maker for a filtered set.`),
       h('div.row.tight', {}, [
-        h('button.btn.primary', { onclick: () => start({ title: 'Practice Test', questions: all }) }, `▶️ Start (${all.length} questions)`),
+        h('button.btn.primary', { onclick: () => start({ title: 'Practice Test', questions: all }) }, `Start (${all.length} questions)`),
         h('a.btn', { href: '#/tool/generator' }, 'Quiz Maker →'),
       ]),
     ]));
@@ -65,7 +65,7 @@ export class Runner {
     const form = h('div', { style: 'margin-top:1.2rem' });
     q.questions.forEach((question, i) => form.append(this.questionBlock(question, i)));
     this.root.append(form);
-    this.root.append(h('button.btn.primary', { style: 'margin-top:1rem', onclick: () => this.submit() }, '✓ Submit & grade'));
+    this.root.append(h('button.btn.primary', { style: 'margin-top:1rem', onclick: () => this.submit() }, 'Submit & grade'));
   }
 
   questionBlock(q, i) {
@@ -143,11 +143,11 @@ export class Runner {
       ]),
       h('div.row.tight', { style: 'margin-top:1rem' },
         this.opts.shared ? [
-          h('button.btn.sm.primary', { onclick: () => location.reload() }, '↺ Retake'),
+          h('button.btn.sm.primary', { onclick: () => location.reload() }, 'Retake'),
           h('a.btn.sm', { href: '#/' }, 'About OpenAssess'),
         ] : [
-          h('a.btn.sm.primary', { href: '#/tool/reports' }, '📊 View in Reports'),
-          h('button.btn.sm', { onclick: () => location.reload() }, '↺ Retake'),
+          h('a.btn.sm.primary', { href: '#/tool/reports' }, 'View in Reports'),
+          h('button.btn.sm', { onclick: () => location.reload() }, 'Retake'),
         ]),
     ]);
     this.root.prepend(summary);

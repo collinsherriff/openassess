@@ -16,14 +16,21 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="topbar">
     <a class="brand" href="#/" aria-label="OpenAssess home">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <span class="brand-text">Open<b>Assess</b></span>
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="4.5"/>
+          <path d="m8 12.5 3 3L16.5 9"/>
+        </svg>
+      </span>
+      <span class="brand-text">OpenAssess</span>
     </a>
     <nav class="topnav" aria-label="Primary">
       <a href="#/tools">Tools</a>
       <a href="#/bank">Item Bank</a>
       <a href="#/about">About</a>
-      <a class="gh" href="https://github.com/collinsherriff/openassess" target="_blank" rel="noopener">GitHub ↗</a>
+      <button class="kbd-hint" id="palette-hint" type="button" aria-label="Open command palette">
+        Jump to&hellip; <span class="kbd">⌘K</span>
+      </button>
     </nav>
     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle light / dark">◐</button>
   </header>
@@ -32,7 +39,7 @@
 
   <footer class="footer">
     <div>
-      <strong>OpenAssess</strong> · 100% free · privacy-first · runs entirely in your browser
+      <strong>OpenAssess</strong> — made for teachers, free for good. Everything runs in your browser.
     </div>
     <div class="footer-links">
       <a href="#/about">About</a>

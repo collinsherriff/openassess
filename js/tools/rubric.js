@@ -46,7 +46,7 @@ export async function render(mount) {
         h('div.row.tight', {}, [
           h('span', {}, [h('label', { style: 'display:inline;margin-right:.3rem' }, 'Weight'),
             h('input', { type: 'number', value: cr.weight, style: 'width:5rem;display:inline', oninput: (e) => { cr.weight = Number(e.target.value); save(); renderPreview(); } })]),
-          h('button.btn.sm.danger', { onclick: () => { model.criteria.splice(ci, 1); save(); renderEditor(); renderPreview(); } }, '🗑'),
+          h('button.btn.sm.danger', { onclick: () => { model.criteria.splice(ci, 1); save(); renderEditor(); renderPreview(); } }, 'Delete'),
         ]),
       ]));
       const descWrap = h('div.inline-fields', { style: 'margin-top:.5rem' });
@@ -62,9 +62,9 @@ export async function render(mount) {
       panel.append(box);
     });
     panel.append(h('div.row.tight', {}, [
-      h('button.btn.sm', { onclick: () => { model.criteria.push({ name: '', weight: 1, cells: [] }); save(); renderEditor(); } }, '＋ Add criterion'),
-      h('button.btn.sm.primary', { onclick: () => printRubric(model) }, '🖨 Print / PDF'),
-      h('button.btn.sm', { onclick: () => download('rubric.json', JSON.stringify(model, null, 2), 'application/json') }, '⬇ Save file'),
+      h('button.btn.sm', { onclick: () => { model.criteria.push({ name: '', weight: 1, cells: [] }); save(); renderEditor(); } }, '+ Add criterion'),
+      h('button.btn.sm.primary', { onclick: () => printRubric(model) }, 'Print / PDF'),
+      h('button.btn.sm', { onclick: () => download('rubric.json', JSON.stringify(model, null, 2), 'application/json') }, 'Save file'),
       h('button.btn.sm.ghost', { onclick: () => { model = sample(); save(); renderEditor(); renderPreview(); } }, 'Reset'),
     ]));
   }

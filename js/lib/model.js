@@ -15,12 +15,12 @@
 // }
 
 export const TYPES = {
-  mc:    { label: 'Multiple choice',  icon: '🔘' },
-  multi: { label: 'Multiple answer',  icon: '☑️' },
-  tf:    { label: 'True / false',     icon: '⚖️' },
-  short: { label: 'Short answer',     icon: '✏️' },
-  fib:   { label: 'Fill in the blank',icon: '⬚' },
-  essay: { label: 'Essay',            icon: '📝' },
+  mc:    { label: 'Multiple choice',   icon: '' },
+  multi: { label: 'Multiple answer',   icon: '' },
+  tf:    { label: 'True / false',      icon: '' },
+  short: { label: 'Short answer',      icon: '' },
+  fib:   { label: 'Fill in the blank', icon: '' },
+  essay: { label: 'Essay',             icon: '' },
 };
 
 export const BLOOM = ['Remember', 'Understand', 'Apply', 'Analyze', 'Evaluate', 'Create'];

@@ -11,7 +11,7 @@ export async function render(mount) {
 
   const results = Store.results();
   if (!results.length) {
-    root.append(h('div.empty', { html: '<div class="big">📊</div><h3>No results yet</h3><p>Deliver a test with the <a href="#/tool/quiz">Test Player</a> — each attempt is saved here automatically.</p>' }));
+    root.append(h('div.empty', { html: '<h3>No results yet</h3><p>Deliver a test with the <a href="#/tool/quiz">Test Player</a> — each attempt is saved here automatically.</p>' }));
     mount.append(root); return;
   }
 
@@ -88,7 +88,7 @@ export async function render(mount) {
   recent.append(h('div.spread', {}, [
     h('h3', {}, 'Recent attempts'),
     h('div.row.tight', {}, [
-      h('button.btn.sm', { onclick: () => download('results.csv', resultsCSV(results), 'text/csv') }, '⬇ Export CSV'),
+      h('button.btn.sm', { onclick: () => download('results.csv', resultsCSV(results), 'text/csv') }, 'Export CSV'),
       h('button.btn.sm.danger', { onclick: () => { if (confirm('Clear all saved results?')) { Store.clearResults(); toast('Cleared'); location.reload(); } } }, 'Clear'),
     ]),
   ]));

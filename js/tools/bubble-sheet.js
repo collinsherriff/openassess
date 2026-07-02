@@ -30,8 +30,8 @@ export async function render(mount) {
     h('input', { type: 'text', placeholder: '1B 2C 3A 4D …', oninput: (e) => { opts.key = e.target.value; } }),
   ]));
   panel.append(h('div.row.tight', { style: 'margin-top:.8rem' }, [
-    h('button.btn.primary.sm', { onclick: () => printSheet(false) }, '🖨 Print sheet'),
-    h('button.btn.sm', { onclick: () => printSheet(true) }, '🖨 Print with key'),
+    h('button.btn.primary.sm', { onclick: () => printSheet(false) }, 'Print sheet'),
+    h('button.btn.sm', { onclick: () => printSheet(true) }, 'Print with key'),
   ]));
 
   function labeled(label, ctrl) { return h('div', {}, [h('label', {}, label), ctrl]); }

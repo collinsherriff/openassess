@@ -18,8 +18,8 @@ export async function render(mount) {
 
   source.append(h('h3', {}, 'Build a deck'));
   source.append(h('div.row.tight', {}, [
-    h('button.btn.sm.primary', { onclick: fromBank }, `🗄️ From Item Bank (${Store.count()})`),
-    h('button.btn.sm', { onclick: () => pasteMode() }, '📋 From term = definition list'),
+    h('button.btn.sm.primary', { onclick: fromBank }, `From Item Bank (${Store.count()})`),
+    h('button.btn.sm', { onclick: () => pasteMode() }, 'From term = definition list'),
   ]));
   const area = h('div', { style: 'margin-top:.8rem' });
   source.append(area);
@@ -45,7 +45,7 @@ export async function render(mount) {
         .map((p) => ({ front: (p[0] || '').trim(), back: (p.slice(1).join('=') || '').trim() }));
       if (!cards.length) { toast('Add some term = definition lines'); return; }
       renderStudy();
-    } }, `Make ${''}deck →`));
+    } }, 'Make deck'));
   }
 
   function renderStudy() {
@@ -55,7 +55,7 @@ export async function render(mount) {
     study.append(h('div.spread', {}, [
       h('h3', {}, `${cards.length}-card deck`),
       h('div.row.tight', {}, [
-        h('button.btn.sm', { onclick: () => download('flashcards-anki.csv', ankiCSV(cards), 'text/csv') }, '⬇ Anki / Quizlet CSV'),
+        h('button.btn.sm', { onclick: () => download('flashcards-anki.csv', ankiCSV(cards), 'text/csv') }, 'Anki / Quizlet CSV'),
       ]),
     ]));
 
@@ -73,9 +73,9 @@ export async function render(mount) {
     card.onclick = () => { flipped = !flipped; draw(); };
     const nav = h('div.row', { style: 'justify-content:center;margin-top:.8rem' }, [
       h('button.btn', { onclick: () => { i = (i - 1 + cards.length) % cards.length; flipped = false; draw(); } }, '← Prev'),
-      h('button.btn', { onclick: () => { flipped = !flipped; draw(); } }, '↺ Flip'),
+      h('button.btn', { onclick: () => { flipped = !flipped; draw(); } }, 'Flip'),
       h('button.btn', { onclick: () => { i = (i + 1) % cards.length; flipped = false; draw(); } }, 'Next →'),
-      h('button.btn.ghost', { onclick: () => { cards = shuffle(cards); i = 0; flipped = false; draw(); } }, '🔀 Shuffle'),
+      h('button.btn.ghost', { onclick: () => { cards = shuffle(cards); i = 0; flipped = false; draw(); } }, 'Shuffle'),
     ]);
     study.append(card, counter, nav);
     draw();

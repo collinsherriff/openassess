@@ -77,7 +77,7 @@ function weightedPanel() {
       <div class="lbl">${tw !== 100 ? `⚠ weights sum to ${tw}% (normalized)` : 'weights sum to 100%'}</div>`;
   };
   p.append(body);
-  p.append(h('button.btn.sm.ghost', { style: 'margin-top:.5rem', onclick: () => { rows.push({ name: '', weight: 0, score: 0 }); render(); } }, '＋ Add category'));
+  p.append(h('button.btn.sm.ghost', { style: 'margin-top:.5rem', onclick: () => { rows.push({ name: '', weight: 0, score: 0 }); render(); } }, '+ Add category'));
   p.append(result);
   render(); calc();
   return p;

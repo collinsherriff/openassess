@@ -1,5 +1,6 @@
 // ===== Tiny DOM + UI helpers (no framework) =====
 import { TYPES, escapeHtml } from './model.js';
+import { icon } from './icons.js';
 
 // h('div.card#id', {onclick}, [children]) — hyperscript-lite
 export function h(sel, props = {}, children = []) {
@@ -60,7 +61,7 @@ export function questionCard(q, { showAnswer = true, index } = {}) {
   const meta = [q.subject, q.difficulty, q.bloom, q.standard].filter(Boolean)
     .map((m) => `<span class="tag">${escapeHtml(m)}</span>`).join('');
   return h('div.q-card', {
-    html: `<div class="q-type">${t.icon || ''} ${t.label}${index != null ? ` · #${index + 1}` : ''} · ${q.points ?? 1} pt</div>
+    html: `<div class="q-type">${t.label}${index != null ? ` · #${index + 1}` : ''} · ${q.points ?? 1} pt</div>
       <div class="q-stem">${escapeHtml(q.stem) || '<span class="muted">(no text)</span>'}</div>
       ${inner}
       ${meta ? `<div style="margin-top:.5rem">${meta}${(q.tags || []).map((tg) => `<span class="tag">#${escapeHtml(tg)}</span>`).join('')}</div>` : ''}`,
@@ -89,7 +90,7 @@ export function setActiveStep(container, idx) {
 export function dropzone(label, accept, onFiles) {
   const input = h('input', { type: 'file', accept, multiple: true, style: 'display:none' });
   const zone = h('div.dropzone', {}, [
-    h('div.big', {}, '📄'),
+    h('div.big', {}, [icon('import')]),
     h('div', { html: `<b>${label}</b>` }),
     h('div.muted', { style: 'font-size:.85rem;margin-top:.3rem' }, 'Click to browse or drag files here'),
     input,
